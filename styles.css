@@ -1,52 +1,306 @@
+/* ===========================
+   Base & Layout
+   =========================== */
+
 body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
   font-family: Arial, sans-serif;
+}
+
+.container {
+  position: relative;
+  margin: 40px 0;
+  text-align: center;
+  width: 800px;
+  max-width: 95%;
+}
+
+/* ===========================
+   Top‐Right Icons
+   =========================== */
+
+.icon-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+}
+
+.icon-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin: 4px;
+}
+
+/* ===========================
+   Heading & Found Bars
+   =========================== */
+
+.prompt {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+#found-container {
+  margin-bottom: 24px;
+}
+
+.found-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 12px;
+  color: #2b2b2b;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  /* Initial hidden state for slide‐in */
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
+
+.found-bar.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.found-title {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+/* Four distinct colors (in order of discovery) */
+.found-bar:nth-child(1) { background-color: #f7dc6f; }  /* yellow */
+.found-bar:nth-child(2) { background-color: #a9dfbf; }  /* green */
+.found-bar:nth-child(3) { background-color: #aed6f1; }  /* blue */
+.found-bar:nth-child(4) { background-color: #d7bde2; }  /* purple */
+
+/* ===========================
+   Grid & Cells
+   =========================== */
 
 #grid {
   display: grid;
-  grid-template-columns: repeat(4, 120px);
-  grid-gap: 10px;
-  margin-bottom: 20px;
+  grid-template-columns: repeat(4, 180px);
+  grid-gap: 12px;
+  justify-content: center;
+  margin-bottom: 32px;
 }
 
 .cell {
-  padding: 10px;
-  border: 2px solid #333;
-  border-radius: 4px;
-  text-align: center;
+  background-color: #efefe8;        /* light beige */
+  color: #2b2b2b;                    /* dark text */
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  border-radius: 8px;
   cursor: pointer;
   user-select: none;
+  transition: background-color 0.2s, color 0.2s;
 }
 
-.selected {
-  background-color: #def;
+.cell.selected {
+  background-color: #57564e;        /* dark gray */
+  color: #ffffff;
 }
 
-.found {
-  background-color: #8f8;
+.cell.found {
+  background-color: #57564e;
+  color: #ffffff;
+}
+
+/* ===========================
+   Submission‐Chance Dots
+   =========================== */
+
+.mistakes-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  font-size: 1rem;
+  color: #2b2b2b;
+}
+
+.mistakes-container .dots {
+  display: flex;
+  margin-left: 8px;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  background-color: #57564e;        /* dark circle */
+  border-radius: 50%;
+  margin: 0 4px;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+/* ===========================
+   Buttons
+   =========================== */
+
+.controls {
+  margin-bottom: 24px;
+}
+
+button {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 30px;
+  border: 2px solid #57564e;
+  background: transparent;
+  color: #57564e;
+  cursor: pointer;
+  margin: 0 12px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+button:hover:enabled {
+  background-color: #57564e;
+  color: #ffffff;
+}
+
+button:disabled {
+  border-color: #cccccc;
+  color: #cccccc;
   cursor: default;
 }
 
-.controls {
-  margin-bottom: 10px;
+/* ===========================
+   Archive Section
+   =========================== */
+
+#archive-section {
+  margin-top: 32px;
+  text-align: left;
 }
 
-#submit,
-#reset {
-  padding: 8px 16px;
-  font-size: 14px;
+#archive-section h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: #2b2b2b;
+}
+
+#archive-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#archive-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 1rem;
+}
+
+#archive-list li .icon {
   margin-right: 8px;
+  font-size: 1.2rem;
 }
 
-#message {
-  margin-top: 10px;
-  font-weight: bold;
+/* ===========================
+   Modals
+   =========================== */
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
 }
 
-#connections {
-  margin-top: 20px;
+.modal-content {
+  background-color: #ffffff;
+  margin: 80px auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 60%;
+  max-width: 500px;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 1.4rem;
+  color: #2b2b2b;
+  cursor: pointer;
+}
+
+/* ===========================
+   Hint Modal Specific
+   =========================== */
+
+#hint-list {
+  list-style: disc inside;
+  margin-top: 12px;
+  color: #2b2b2b;
+  font-size: 1rem;
+}
+
+
+
+/* ===========================
+   Animations
+   =========================== */
+
+/* Checking jump on selected cells */
+@keyframes checkingJump {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-12px); }
+  60%  { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+.checking {
+  animation: checkingJump 0.4s ease-out;
+}
+
+/* Correct bar jump */
+@keyframes jump {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-12px); }
+  60%  { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+.correct-animation {
+  animation: jump 0.5s ease-out;
+}
+
+/* Wrong-check shiver on cells */
+@keyframes shiverCheck {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-5px); }
+  40%  { transform: translateX(5px); }
+  60%  { transform: translateX(-5px); }
+  80%  { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+.wrong-check {
+  animation: shiverCheck 0.6s ease-in-out;
 }

@@ -1,21 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Philosophical Connections</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Philosophical Connections</h1>
-  <div id="grid"></div>
-  <div class="controls">
-    <button id="submit">Check Connection</button>
-    <button id="reset">Reset</button>
+  <div class="container">
+    <!-- Top-right icons: Help, Stats, Hint -->
+    <div class="icon-container">
+      <button id="helpBtn" class="icon-button" title="Help">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="11" stroke="#2b2b2b" stroke-width="2" fill="none" />
+          <text x="12" y="16" text-anchor="middle" font-size="14px" fill="#2b2b2b" font-family="Arial">?</text>
+        </svg>
+      </button>
+      <button id="statsBtn" class="icon-button" title="Stats">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <rect x="4" y="8"   width="4" height="12" fill="#2b2b2b" />
+          <rect x="10" y="4"  width="4" height="16" fill="#2b2b2b" />
+          <rect x="16" y="12" width="4" height="8"  fill="#2b2b2b" />
+        </svg>
+      </button>
+      <button id="hintBtn" class="icon-button" title="Hint">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <path d="M12 2a7 7 0 00-7 7c0 3.87 2.97 7.12 7 7.88V19h-1a1 1 0 000 2h6a1 1 0 000-2h-1v-2.12c4.03-.76 7-4.01 7-7.88a7 7 0 00-7-7zm1 16.93V19h-2v-.07A9.005 9.005 0 015 9a9 9 0 1118 0c0 4.39-2.84 8.14-6.79 9.93zM12 6a3 3 0 00-3 3h2a1 1 0 112 0 1 1 0 011 1c0 1.1-.9 2-2 2v2h2v-2c1.66 0 3-1.34 3-3a3 3 0 00-3-3z" fill="#2b2b2b"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Heading -->
+    <h2 class="prompt">Create four groups of four!</h2>
+
+    <!-- Found bars container -->
+    <div id="found-container"></div>
+
+    <!-- 4×4 grid -->
+    <div id="grid"></div>
+
+    <!-- Five submission‐chance dots -->
+    <div class="mistakes-container">
+      <span>Submission Chances:</span>
+      <div class="dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="controls">
+      <button id="shuffleBtn" class="btn-outline">Shuffle</button>
+      <button id="deselectBtn" class="btn-outline">Deselect All</button>
+      <button id="submitBtn" class="btn-outline" disabled>Submit</button>
+    </div>
+
+    <!-- Archive Section -->
+    <div id="archive-section">
+      <h3>Archive</h3>
+      <ul id="archive-list"></ul>
+    </div>
   </div>
-  <div id="message"></div>
-  <div id="connections"></div>
+
+  <!-- Help Modal -->
+  <div id="helpModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" data-modal="helpModal">&times;</span>
+      <!-- Help content goes here -->
+    </div>
+  </div>
+
+  <!-- Stats Modal -->
+  <div id="statsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" data-modal="statsModal">&times;</span>
+      <!-- Stats content goes here -->
+    </div>
+  </div>
+
+  <!-- Hint Modal (new) -->
+  <div id="hintModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" data-modal="hintModal">&times;</span>
+      <h3>Group Names</h3>
+      <ul id="hint-list"></ul>
+    </div>
+  </div>
 
   <script src="game.js"></script>
+  <script src="archive.js"></script>
 </body>
 </html>
